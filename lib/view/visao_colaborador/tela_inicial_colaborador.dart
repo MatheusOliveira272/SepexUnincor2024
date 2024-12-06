@@ -10,15 +10,15 @@ import 'package:pin/view/visao_cliente/lista_atendimento.dart';
 import 'package:pin/view/visao_salao/cadastro_estabelecimento.dart';
 import 'package:pin/view/visao_salao/lista_colaborador.dart';
 
-class TelaInicial extends StatefulWidget {
+class TelaInicialColaborador extends StatefulWidget {
   final User user;
-  TelaInicial({super.key, required this.user});
+  TelaInicialColaborador({super.key, required this.user});
 
   @override
-  State<TelaInicial> createState() => _TelaInicialState();
+  State<TelaInicialColaborador> createState() => _TelaInicialColaboradorState();
 }
 
-class _TelaInicialState extends State<TelaInicial> {
+class _TelaInicialColaboradorState extends State<TelaInicialColaborador> {
   bool isDecrescente = true;
 
   final List<Estabelecimento> estabelecimentos = [];
@@ -102,7 +102,7 @@ class _TelaInicialState extends State<TelaInicial> {
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            IconButton(onPressed: (){
+                            /*IconButton(onPressed: (){
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -120,8 +120,9 @@ class _TelaInicialState extends State<TelaInicial> {
                                      user: widget.user,
                                     ),
                                   ));
-                            }, icon: Icon(Icons.near_me)),
-                            /*
+                            }, icon: Icon(Icons.near_me)),*/
+
+                            
                             IconButton(onPressed: (){
                               Navigator.push(
                                   context,
@@ -149,7 +150,7 @@ class _TelaInicialState extends State<TelaInicial> {
                                       estabelecimentoId: estabelecimento.uuid,
                                     ),
                                   ));
-                            }, icon: Icon(Icons.person)),*/
+                            }, icon: Icon(Icons.person)),
                           ],
                         ),
                         onTap: () {

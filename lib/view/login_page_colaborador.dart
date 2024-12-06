@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pin/model/widgets/snackbar_exceptions.dart';
 import 'package:pin/service/autenticacao_service.dart';
-import 'package:pin/view/login_page_colaborador.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPageColaborador extends StatefulWidget {
+  const LoginPageColaborador({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPageColaborador> createState() => _LoginPageColaboradorState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageColaboradorState extends State<LoginPageColaborador> {
   final formKey = GlobalKey<FormState>();
   final email = TextEditingController();
   final senha = TextEditingController();
@@ -21,19 +20,16 @@ class _LoginPageState extends State<LoginPage> {
   AutenticacaoService _auth = AutenticacaoService();
 
   bool isLogin = true;
-  bool ativo = true;
 
   late String titulo;
   late String actionButton;
   late String toggleButton;
-  late String tituloColaborador;
   bool loading = false;
 
   @override
   void initState() {
     super.initState();
     setFormAction(true);
-    setFormActionColaborador(true);
   }
 
   setFormAction(bool acao) {
@@ -48,18 +44,6 @@ class _LoginPageState extends State<LoginPage> {
         actionButton = 'Cadastrar';
         toggleButton = 'Voltar ao login.';
       }
-    });
-  }
-
-  setFormActionColaborador(bool action) {
-    setState(() {
-      ativo = action;
-      if(ativo){
-        tituloColaborador = "Colaborador, entre por aqui!";
-      }else{
-        tituloColaborador = "Login Colaborador";
-      }
-      
     });
   }
 
@@ -197,10 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                             TextButton(
                                 onPressed: () => setFormAction(!isLogin),
                                 child: Text(toggleButton)),
-                            TextButton(
-
-                                onPressed: () => setFormActionColaborador(false),
-                                child: Text(tituloColaborador)),
+                            
                           ],
                         )
                       : Column(

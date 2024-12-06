@@ -30,7 +30,7 @@ class AutenticacaoService {
   Future<String?> logarUsuario({
         required String nome, 
         required String senha, 
-        required String email
+        required String email,
       }) async {
        try{ 
         await _firebaseAuth.signInWithEmailAndPassword(email: email, password: senha);

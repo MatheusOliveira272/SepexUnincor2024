@@ -20,8 +20,13 @@ class EstabelecimentoService {
     return await _firestore.collection(userId).doc(idObjeto).collection("nome_objeto").doc(objeto.id).set(objeto.toMap); //Estou criando uma coleção dentro do meu objeto principal, digamos que meu estabelecimento tivesse uma certa quantidade de funcionarios, o objeto seria -> Funcionario, e o nome da coleção seria -> funcionarios
   }*/
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> conectarStreamEstabelecimentos(bool isDecrescente){
+  Stream<QuerySnapshot<Map<String, dynamic>>> conectarStreamEstabelecimentosEspecifico(bool isDecrescente){
     return _firestore.collection("estabelecimentos").where("user", isEqualTo: userId).snapshots();//informações vindo ordenandas por nome
+
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> conectarStreamEstabelecimentos(bool isDecrescente){
+    return _firestore.collection("estabelecimentos").snapshots();//informações vindo ordenandas por nome
 
   }
 

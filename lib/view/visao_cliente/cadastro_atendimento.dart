@@ -139,6 +139,7 @@ class _CadastroAtendimentoState extends State<CadastroAtendimento> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Atendimento criado com sucesso!")),
       );
+      Navigator.of(context).pop();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Erro ao criar atendimento: $e")),
@@ -156,21 +157,18 @@ class _CadastroAtendimentoState extends State<CadastroAtendimento> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            DropdownButton<String>(
-              items: horariosDisponiveis.map((String horario) {
-                return DropdownMenuItem<String>(
-                  value: horario,
-                  child: Text(horario),
-                );
-              }).toList(),
-              onChanged: (String? novoHorario) {
-                setState(() {
-                  horarioSelecionado = novoHorario!;
-                });
-              },
-              value: horarioSelecionado,
-              hint: Text("Selecione um horário"),
+            TextFormField(
+              controller: dataController,
+              decoration: InputDecoration(
+                label: Text("Data"),
+                prefixIcon: Icon(Icons.calendar_today),
+                filled: true,
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+              ),
+              readOnly: true,
+              onTap: _selectDate,
             ),
+            
             StreamBuilder(
                 stream: _userService.conectarStreamColaboradoresEstabelecimento(
                     true, widget.estabelecimentoId),
@@ -210,6 +208,21 @@ class _CadastroAtendimentoState extends State<CadastroAtendimento> {
                     hint: Text("Selecione um colaborador"),
                   );
                 }),
+                DropdownButton<String>(
+              items: horariosDisponiveis.map((String horario) {
+                return DropdownMenuItem<String>(
+                  value: horario,
+                  child: Text(horario),
+                );
+              }).toList(),
+              onChanged: (String? novoHorario) {
+                setState(() {
+                  horarioSelecionado = novoHorario!;
+                });
+              },
+              value: horarioSelecionado,
+              hint: Text("Selecione um horário"),
+            ),
             if (idColaborador != null)
               StreamBuilder(
                 stream: _servicoService
@@ -275,17 +288,7 @@ class _CadastroAtendimentoState extends State<CadastroAtendimento> {
                   );
                 },
               ),
-            TextFormField(
-              controller: dataController,
-              decoration: InputDecoration(
-                label: Text("Data"),
-                prefixIcon: Icon(Icons.calendar_today),
-                filled: true,
-                enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-              ),
-              readOnly: true,
-              onTap: _selectDate,
-            ),
+            
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: criarAtendimento,

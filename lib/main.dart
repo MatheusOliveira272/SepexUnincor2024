@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pin/service/autenticacao_service.dart';
 import 'package:pin/view/login_page.dart';
 import 'package:pin/view/visao_cliente/tela_inicial.dart';
+import 'package:pin/view/visao_colaborador/tela_inicial_colaborador.dart';
 import 'package:pin/view/visao_salao/cadastro_servico.dart';
 import 'package:pin/view/visao_salao/lista_servico.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -96,7 +98,13 @@ class RoteadorTela extends StatelessWidget {
       stream: FirebaseAuth.instance.userChanges(), 
       builder: (context, snapshot){
         if(snapshot.hasData){
-          return TelaInicial(user: snapshot.data!,);
+          User user = snapshot.data!;
+          if(user.email != "teste@gmail.com"){
+            return TelaInicial(user: snapshot.data!,);
+          }else{
+            return TelaInicialColaborador(user: snapshot.data!);
+          }
+          
         }else{
           return const LoginPage();
         }
